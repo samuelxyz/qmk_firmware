@@ -24,9 +24,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Tab  |   Y  |   O  |   U  |   B  |   .  |                    |   X  |   K  |   C  |   L  |   V  |  ;   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |Extend|   I  |   A  |   E  |   N  |   ,  |-------.    ,-------|   M  |   H  |   S  |   R  |   T  |Enter |
+ * |Extend|   I  |   A  |   E  |   N  |   ,  |-------.    ,-------|   M  |   H  |   S  |   R  |   T  |  -   |
  * |------+------+------+------+------+------|   Z   |    |WinSftS|------+------+------+------+------+------|
- * |LCtrl |  Sym |   '  |   /  |   P  |   W  |-------|    |-------|   F  |   D  |   G  |   J  |   Q  |  -   |
+ * |LCtrl |  Sym |   '  |   /  |   P  |   W  |-------|    |-------|   F  |   D  |   G  |   J  |   Q  | Enter|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   | LAlt | REP  |LShift| /BackSP /       \Extend\  |Space | Sym  | Win  |
  *                   |(RCtrl)      |      |/       /         \      \ |      |      |      |
@@ -36,8 +36,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [_ROLLLA] = LAYOUT(
   KC_ESC,   KC_MUTE,    KC_VOLD,    KC_VOLU,    KC_MPLY,    C(S(KC_SPC)),                           KC_NO,      LGUI(KC_DOT),   KC_NO,  KC_NO,  LGUI(KC_V), KC_GRV,
   KC_TAB,   KC_Y,       KC_O,       KC_U,       KC_B,       KC_DOT,                                 KC_X,       KC_K,           KC_C,   KC_L,   KC_V,       KC_SCLN,
-  MO(5),    KC_I,       KC_A,       KC_E,       KC_N,       KC_COMM,                                KC_M,       KC_H,           KC_S,   KC_R,   KC_T,       KC_ENT,
-  KC_LCTL,  MO(4),      KC_QUOT,    KC_SLSH,    KC_P,       KC_W,           KC_Z,   SGUI(KC_S),     KC_F,       KC_D,           KC_G,   KC_J,   KC_Q,       KC_MINS,
+  MO(5),    KC_I,       KC_A,       KC_E,       KC_N,       KC_COMM,                                KC_M,       KC_H,           KC_S,   KC_R,   KC_T,       KC_MINS,
+  KC_LCTL,  MO(4),      KC_QUOT,    KC_SLSH,    KC_P,       KC_W,           KC_Z,   SGUI(KC_S),     KC_F,       KC_D,           KC_G,   KC_J,   KC_Q,       KC_ENT,
                                 KC_RCTL,    REP,    OSM(MOD_LSFT),  KC_BSPC,            MO(5),      KC_SPC,     MO(4),      KC_RGUI
 ),
 
@@ -185,10 +185,10 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 // When you add source files to SRC in rules.mk, you can use functions.
 const char *read_layer_state(void);
 const char *read_host_led_state(void);
-const char *read_logo(void);
-void set_keylog(uint16_t keycode, keyrecord_t *record);
-const char *read_keylog(void);
-const char *read_keylogs(void);
+// const char *read_logo(void);
+// void set_keylog(uint16_t keycode, keyrecord_t *record);
+// const char *read_keylog(void);
+// const char *read_keylogs(void);
 static void tanamr_logo(void);
 
 // const char *read_mode_icon(bool swap);
@@ -196,6 +196,7 @@ static void tanamr_logo(void);
 // void set_timelog(void);
 // const char *read_timelog(void);
 
+bool scrollla = false;
 bool oled_task_user(void) {
   if (is_keyboard_master()) {
     // If you want to change the display of OLED, you need to change here
@@ -205,6 +206,12 @@ bool oled_task_user(void) {
     //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
     oled_write_ln(read_host_led_state(), false);
     //oled_write_ln(read_timelog(), false);
+    if (scrollla) {
+        oled_scroll_set_area(0, 0);
+        oled_scroll_right();
+    } else {
+        oled_scroll_off();
+    }
   } else {
     // oled_write(read_logo(), false);
     tanamr_logo();
@@ -260,10 +267,12 @@ static void tanamr_logo(void){
 char layer_state_str[24];
 
 const char *read_layer_state(void) {
+  scrollla = false;
   switch (get_highest_layer(layer_state))
   {
   case _ROLLLA:
-    snprintf(layer_state_str, sizeof(layer_state_str), "Rollla rollla rollla!");
+    snprintf(layer_state_str, sizeof(layer_state_str), "rollla rollla rollla ");
+    scrollla = true;
     break;
   case _GAME:
     snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Game");
