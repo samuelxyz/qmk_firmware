@@ -37,9 +37,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
 
-#define OLED_TIMEOUT 30000
+#define OLED_TIMEOUT 10000
 #define OLED_FADE_OUT
-#define OLED_FADE_OUT_INTERVAL 3
+// #define OLED_FADE_OUT_INTERVAL 3
 // #define OLED_SCROLL_TIMEOUT 25000
 #define OLED_BRIGHTNESS 200
 #define OLED_UPDATE_INTERVAL 5
