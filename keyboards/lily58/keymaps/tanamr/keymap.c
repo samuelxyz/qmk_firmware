@@ -1,5 +1,7 @@
 #include QMK_KEYBOARD_H
 #include <stdio.h>
+// #include "led.h"
+// #include "host.h"
 
 enum custom_keycodes {
     REP = SAFE_RANGE
@@ -36,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_Y,       KC_O,       KC_U,       KC_B,       KC_DOT,                                 KC_X,       KC_K,           KC_C,   KC_L,   KC_V,       KC_SCLN,
   MO(5),    KC_I,       KC_A,       KC_E,       KC_N,       KC_COMM,                                KC_M,       KC_H,           KC_S,   KC_R,   KC_T,       KC_ENT,
   KC_LCTL,  MO(4),      KC_QUOT,    KC_SLSH,    KC_P,       KC_W,           KC_Z,   SGUI(KC_S),     KC_F,       KC_D,           KC_G,   KC_J,   KC_Q,       KC_MINS,
-                                KC_LALT,    REP,    OSM(MOD_LSFT),  KC_BSPC,            MO(5),      KC_SPC,     MO(4),      KC_RGUI
+                                KC_RCTL,    REP,    OSM(MOD_LSFT),  KC_BSPC,            MO(5),      KC_SPC,     MO(4),      KC_RGUI
 ),
 
 /* QWERTY
@@ -79,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_SYMBOLS] = LAYOUT(
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PSLS, KC_PAST, KC_PMNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_AMPR, KC_PSLS, KC_PAST, KC_PMNS, KC_TRNS,
   KC_TRNS, KC_PIPE, KC_EXLM, KC_LCBR, KC_RCBR, KC_DLR, KC_ASTR, KC_P7, KC_P8, KC_P9, KC_PLUS, KC_TRNS,
   KC_TRNS, KC_BSLS, KC_AT, KC_LPRN, KC_RPRN, KC_LT, KC_GT, KC_P4, KC_P5, KC_P6, KC_PEQL, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_HASH, KC_LBRC, KC_RBRC, KC_PERC, KC_TRNS, KC_TRNS, KC_UNDS, KC_P1, KC_P2, KC_P3, KC_CIRC, KC_TRNS,
@@ -87,7 +89,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_EXTEND] = LAYOUT(
-  KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_TRNS, TO(1), TO(2), TO(0), KC_NO, KC_NO, KC_PGUP, KC_HOME, KC_UP, KC_END, KC_DEL, KC_F12, KC_TRNS, KC_LALT, KC_LGUI, KC_LSFT, KC_LCTL, KC_NO, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_ENT, SGUI(KC_S), KC_TRNS, KC_UNDO, KC_CUT, KC_COPY, KC_PSTE, KC_NO, QK_BOOT, KC_SLEP, KC_NO, KC_NO, KC_NO, KC_NO, KC_TAB, KC_NO, KC_NO, KC_NO, KC_TAB, KC_BSPC, KC_NO, KC_TRNS, KC_NO, KC_NO
+  KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11,
+  KC_TRNS, TO(1), TO(2), TO(0), KC_NO, KC_NO, KC_PGUP, KC_HOME, KC_UP, KC_END, KC_DEL, KC_F12,
+  KC_TRNS, KC_RCTL, KC_LGUI, KC_LSFT, KC_LCTL, KC_NO, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_ENT, SGUI(KC_S),
+  KC_TRNS, C(KC_Z), C(KC_X), C(KC_C), C(KC_V), KC_NO, QK_BOOT, KC_SLEP, KC_NO, KC_NO, KC_NO, KC_NO, KC_TAB, KC_NO,
+  KC_NO, KC_NO, KC_TAB, KC_BSPC, KC_NO, KC_TRNS, KC_NO, KC_NO
 ),
 };
 
@@ -102,6 +108,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 // When you add source files to SRC in rules.mk, you can use functions.
 const char *read_layer_state(void);
+const char *read_host_led_state(void);
 const char *read_logo(void);
 void set_keylog(uint16_t keycode, keyrecord_t *record);
 const char *read_keylog(void);
@@ -120,7 +127,7 @@ bool oled_task_user(void) {
     // oled_write_ln(read_keylog(), false);
     // oled_write_ln(read_keylogs(), false);
     //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
-    //oled_write_ln(read_host_led_state(), false);
+    oled_write_ln(read_host_led_state(), false);
     //oled_write_ln(read_timelog(), false);
   } else {
     // oled_write(read_logo(), false);
@@ -167,34 +174,34 @@ static void tanamr_logo(void){
     oled_write_raw_P(my_logo, sizeof(my_logo));
 }
 
-#define L_BASE 0
-#define L_QWER (1 << 1)
-#define L_GAME (1 << 2)
-#define L_GAMEFN (1 << 3)
-#define L_SYM (1 << 4)
-#define L_EXTEND (1 << 5)
+// #define L_BASE 0
+// #define L_QWER (1 << 1)
+// #define L_GAME (1 << 2)
+// #define L_GAMEFN (1 << 3)
+// #define L_SYM (1 << 4)
+// #define L_EXTEND (1 << 5)
 
 char layer_state_str[24];
 
 const char *read_layer_state(void) {
-  switch (layer_state)
+  switch (get_highest_layer(layer_state))
   {
-  case L_BASE:
+  case _ROLLLA:
     snprintf(layer_state_str, sizeof(layer_state_str), "Rollla rollla rollla!");
     break;
-  case L_GAME:
+  case _GAME:
     snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Game");
     break;
-  case L_QWER:
+  case _QWERTY:
     snprintf(layer_state_str, sizeof(layer_state_str), "Layer: QWERTY");
     break;
-  case L_GAMEFN:
+  case _GAMEFN:
     snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Game Fn");
     break;
-  case L_SYM:
+  case _SYMBOLS:
     snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Sym/Numpad");
     break;
-  case L_EXTEND:
+  case _EXTEND:
     snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Extend");
     break;
   default:
@@ -202,6 +209,17 @@ const char *read_layer_state(void) {
   }
 
   return layer_state_str;
+}
+
+char host_led_state_str[24];
+const char *read_host_led_state(void)
+{
+  led_t led_state = host_keyboard_led_state();
+  snprintf(host_led_state_str, sizeof(host_led_state_str), "%s%s",
+           led_state.caps_lock ? "CapsLk " : "",
+           led_state.scroll_lock ? "ScrollLk" : ""
+  );
+  return host_led_state_str;
 }
 
 
@@ -230,6 +248,7 @@ void process_repeat_key(uint16_t keycode, const keyrecord_t *record) {
       case QK_TO ... QK_TO_MAX:
       case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
       case QK_MODS ... QK_MODS_MAX:
+      case KC_BSPC: // backspace shouldn't repeat lmao
         return;
     }
     if (record->event.pressed) {
