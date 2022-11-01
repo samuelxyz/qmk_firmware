@@ -27,7 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 #define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 100
+#define TAPPING_TERM 200
+#define ONESHOT_TIMEOUT 500
 
 #undef RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS
@@ -40,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_TIMEOUT 10000
 #define OLED_FADE_OUT
 // #define OLED_FADE_OUT_INTERVAL 3
-// #define OLED_SCROLL_TIMEOUT 25000
+// #define OLED_SCROLL_TIMEOUT 5000
 #define OLED_BRIGHTNESS 200
 #define OLED_UPDATE_INTERVAL 5
 

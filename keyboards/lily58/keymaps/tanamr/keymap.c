@@ -189,6 +189,7 @@ const char *read_host_led_state(void);
 // void set_keylog(uint16_t keycode, keyrecord_t *record);
 // const char *read_keylog(void);
 // const char *read_keylogs(void);
+const char *read_mods_state(void);
 static void tanamr_logo(void);
 
 // const char *read_mode_icon(bool swap);
@@ -205,6 +206,7 @@ bool oled_task_user(void) {
     // oled_write_ln(read_keylogs(), false);
     //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
     oled_write_ln(read_host_led_state(), false);
+    oled_write_ln(read_mods_state(), false);
     //oled_write_ln(read_timelog(), false);
     if (scrollla) {
         oled_scroll_set_area(0, 0);
@@ -301,10 +303,29 @@ const char *read_host_led_state(void)
 {
   led_t led_state = host_keyboard_led_state();
   snprintf(host_led_state_str, sizeof(host_led_state_str), "%s%s",
-           led_state.caps_lock ? "CapsLk " : "",
-           led_state.scroll_lock ? "ScrollLk" : ""
+        led_state.caps_lock ? "CapsLk " : "",
+        led_state.scroll_lock ? "ScrollLk" : ""
   );
   return host_led_state_str;
+}
+
+char mods_state_str[24];
+const char *read_mods_state(void)
+{
+    uint8_t mods = get_mods() | get_oneshot_mods();
+    snprintf(mods_state_str, sizeof(mods_state_str), "%s%s%s%s%s",
+        mods ? "Mods: " : "",
+        // mods & MOD_MASK_CTRL ? "C" : "",
+        mods & MOD_BIT(KC_LCTL) ? "C" : "",
+        mods & MOD_MASK_SHIFT ? "S" : "",
+        // mods & MOD_MASK_ALT ? "A" : "",
+        mods & (MOD_MASK_ALT | MOD_BIT(KC_RCTL)) ? "A" : "",
+        mods & MOD_MASK_GUI ? "G" : ""
+    );
+    if (mods) {
+        scrollla = false;
+    }
+    return mods_state_str;
 }
 
 
@@ -366,6 +387,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // only a single modifier from the previous key is repeated (e.g. Ctrl+Shift+T then Repeat produces Shift+T)
     mod_state = get_mods();
     oneshot_mod_state = get_oneshot_mods();
+
     return true;
 }
 
