@@ -137,11 +137,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |QWERTY| GAME |ROLLLA|      |      |                    | PgUp | Home |  Up  | Down | End  | Del  |
+ * |      |QWERTY| GAME |ROLLLA|      |      |                    | PgUp | Home |  Up  | End  |  Del |  F12 |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      | LAlt | LWin |LShift| LCtrl|      |-------.    ,-------|PgDown| Left | Down | Right| Enter|WinSfS|
  * |------+------+------+------+------+------| BOOT  |    | SLEEP |------+------+------+------+------+------|
- * |      | CtrlZ| CtrlX| CtrlC| CtrlV|      |-------|    |-------|      |      |      |      | Tab  |      |
+ * |      | CtrlZ| CtrlX| CtrlC| CtrlV|      |-------|    |-------| CtrlZ| CtrlV| CtrlC| CtrlX| Tab  |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   |      |      | Tab  | / BackSp/       \      \  |      |      |      |
  *                   |      |      |      |/       /         \      \ |      |      |      |
@@ -152,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11,
   KC_TRNS, TO(_QWERTY), TO(_GAME), TO(_ROLLLA), KC_NO, KC_NO, KC_PGUP, KC_HOME, KC_UP, KC_END, KC_DEL, KC_F12,
   KC_TRNS, KC_RCTL, KC_LGUI, KC_LSFT, KC_LCTL, KC_NO, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_ENT, SGUI(KC_S),
-  KC_TRNS, C(KC_Z), C(KC_X), C(KC_C), C(KC_V), KC_NO, QK_BOOT, KC_SLEP, KC_NO, KC_NO, KC_NO, KC_NO, KC_TAB, KC_NO,
+  KC_TRNS, C(KC_Z), C(KC_X), C(KC_C), C(KC_V), KC_NO, QK_BOOT, KC_SLEP, C(KC_Z), C(KC_V), C(KC_C), C(KC_X), KC_TAB, KC_NO,
   KC_NO, KC_NO, KC_TAB, KC_BSPC, KC_NO, KC_TRNS, KC_NO, KC_NO
 ),
 
