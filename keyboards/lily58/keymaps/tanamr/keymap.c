@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |      |      |  #   |  [   |  ]   |  %   |-------|    |-------|  _   |  1   |  2   |  3   |  ^   |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   |      |      |      | /       /       \      \  |  0   |      |  .   |
+ *                   |      |      |      | / Space /       \      \  |  0   |      |  .   |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -130,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_PIPE, KC_EXLM, KC_LCBR, KC_RCBR, KC_DLR, KC_ASTR, KC_P7, KC_P8, KC_P9, KC_PLUS, KC_TRNS,
   KC_TRNS, KC_BSLS, KC_AT, KC_LPRN, KC_RPRN, KC_LT, KC_GT, KC_P4, KC_P5, KC_P6, KC_EQL, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_HASH, KC_LBRC, KC_RBRC, KC_PERC, KC_TRNS, KC_TRNS, KC_UNDS, KC_P1, KC_P2, KC_P3, KC_CIRC, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0, KC_TRNS, KC_PDOT
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_SPC, KC_TRNS, KC_P0, KC_TRNS, KC_PDOT
 ),
 
 /* Extend
