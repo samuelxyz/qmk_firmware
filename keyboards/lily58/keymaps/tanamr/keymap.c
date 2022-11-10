@@ -4,7 +4,10 @@
 // #include "host.h"
 
 enum custom_keycodes {
-    REP = SAFE_RANGE
+    REP = SAFE_RANGE,
+    CTRL_TAB_MASHABLE,
+    ALT_TAB_MASHABLE,
+    ALT_TAB_SELECTOR
 };
 
 enum layer_number {
@@ -20,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* ROLLLA
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * | ESC  | mute | vol- | vol+ | play |CSspc |                    |      | win. |      |      | winV |  `   |
+ * | ESC  | mute | vol- | vol+ | play |CSspc |                    | win. | CTab | ATabM| ATabS| winV |  `   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Tab  |   Y  |   O  |   U  |   B  |   .  |                    |   X  |   K  |   C  |   L  |   V  |  ;   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -34,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
  [_ROLLLA] = LAYOUT(
-  KC_ESC,   KC_MUTE,    KC_VOLD,    KC_VOLU,    KC_MPLY,    C(S(KC_SPC)),                           KC_NO,      LGUI(KC_DOT),   KC_NO,  KC_NO,  LGUI(KC_V), KC_GRV,
+  KC_ESC,   KC_MUTE,    KC_VOLD,    KC_VOLU,    KC_MPLY,    C(S(KC_SPC)),                           LGUI(KC_DOT),      CTRL_TAB_MASHABLE,   ALT_TAB_MASHABLE,  ALT_TAB_SELECTOR,  LGUI(KC_V), KC_GRV,
   KC_TAB,   KC_Y,       KC_O,       KC_U,       KC_B,       KC_DOT,                                 KC_X,       KC_K,           KC_C,   KC_L,   KC_V,       KC_SCLN,
   MO(_EXTEND),    KC_I,       KC_A,       KC_E,       KC_N,       KC_COMM,                                KC_M,       KC_H,           KC_S,   KC_R,   KC_T,       KC_MINS,
   KC_LCTL,  OSL(_SYMBOLS),      KC_QUOT,    KC_SLSH,    KC_P,       KC_W,           KC_Z,   SGUI(KC_S),     KC_F,       KC_D,           KC_G,   KC_J,   KC_Q,       KC_ENT,
@@ -116,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |  |   |  !   |  {   |  }   |  $   |                    |  *   |  7   |  8   |  9   |  +   |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |  \   |  @   |  (   |  )   |  <   |-------.    ,-------|  >   |  4   |  5   |  6   |  =   |      |
+ * | Space|  \   |  @   |  (   |  )   |  <   |-------.    ,-------|  >   |  4   |  5   |  6   |  =   |      |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |      |      |  #   |  [   |  ]   |  %   |-------|    |-------|  _   |  1   |  2   |  3   |  ^   |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
@@ -128,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_SYMBOLS] = LAYOUT(
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_AMPR, KC_PSLS, KC_PAST, KC_PMNS, KC_TRNS,
   KC_TRNS, KC_PIPE, KC_EXLM, KC_LCBR, KC_RCBR, KC_DLR, KC_ASTR, KC_P7, KC_P8, KC_P9, KC_PLUS, KC_TRNS,
-  KC_TRNS, KC_BSLS, KC_AT, KC_LPRN, KC_RPRN, KC_LT, KC_GT, KC_P4, KC_P5, KC_P6, KC_EQL, KC_TRNS,
+  KC_SPC, KC_BSLS, KC_AT, KC_LPRN, KC_RPRN, KC_LT, KC_GT, KC_P4, KC_P5, KC_P6, KC_EQL, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_HASH, KC_LBRC, KC_RBRC, KC_PERC, KC_TRNS, KC_TRNS, KC_UNDS, KC_P1, KC_P2, KC_P3, KC_CIRC, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_SPC, KC_TRNS, KC_P0, KC_TRNS, KC_PDOT
 ),
@@ -381,6 +384,11 @@ void process_repeat_key(uint16_t keycode, const keyrecord_t *record) {
   }
 }
 
+bool alt_tab_mashing = false;
+uint32_t alt_tab_mash_timer = 0;
+bool ctrl_tab_mashing = false;
+uint32_t ctrl_tab_mash_timer = 0;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     process_repeat_key(keycode, record);
     // It's important to update the mod variables *after* calling process_repeat_key, or else
@@ -388,17 +396,61 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     mod_state = get_mods();
     oneshot_mod_state = get_oneshot_mods();
 
+    switch (keycode) {
+      case ALT_TAB_MASHABLE:
+        alt_tab_mash_timer = timer_read(); // timer should start from keyup
+        if (record->event.pressed) {
+          if (!alt_tab_mashing) {
+            alt_tab_mashing = true;
+            register_code(KC_RALT);
+          }
+          register_code(KC_TAB);
+        } else {
+          unregister_code(KC_TAB);
+        }
+        break;
+      case CTRL_TAB_MASHABLE:
+        ctrl_tab_mash_timer = timer_read(); // timer should start from keyup
+        if (record->event.pressed) {
+          if (!ctrl_tab_mashing) {
+            ctrl_tab_mashing = true;
+            register_code(KC_LCTL);
+          }
+          register_code(KC_TAB);
+        } else {
+          unregister_code(KC_TAB);
+        }
+        break;
+      case ALT_TAB_SELECTOR:
+        // avoid possible mess with keyup situation. act on down only
+        if (!record->event.pressed) {
+          break;
+        }
+        if (alt_tab_mashing) {
+          unregister_code(KC_RALT);
+          alt_tab_mashing = false;
+        } else if (ctrl_tab_mashing) {
+          unregister_code(KC_LCTL);
+          ctrl_tab_mashing = false;
+        } else {
+          tap_code16(RALT(KC_TAB));
+        }
+        break;
+    }
+
     return true;
 }
 
-// #endif // OLED_ENABLE
-
-// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-//   if (record->event.pressed) {
-// #ifdef OLED_ENABLE
-//     set_keylog(keycode, record);
-// #endif
-//     // set_timelog();
-//   }
-//   return true;
-//}
+void matrix_scan_user(void) { // just bool checks, should hopefully not slow the scan rate much
+  if (alt_tab_mashing) {
+    if (timer_elapsed(alt_tab_mash_timer) > 1000) {
+      unregister_code(KC_RALT);
+      alt_tab_mashing = false;
+    }
+  } else if (ctrl_tab_mashing) {
+    if (timer_elapsed(ctrl_tab_mash_timer) > 1000) {
+      unregister_code(KC_LCTL);
+      ctrl_tab_mashing = false;
+    }
+  }
+}
