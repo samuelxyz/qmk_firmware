@@ -19,6 +19,16 @@ enum layer_number {
   _EXTEND,
 };
 
+enum combos {
+  KV_TO_Z,
+};
+
+const uint16_t PROGMEM kv_combo[] = {KC_K, KC_V, COMBO_END};
+
+combo_t key_combos[COMBO_COUNT] = {
+  [KV_TO_Z] = COMBO(kv_combo, KC_Z),
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* ROLLLA
