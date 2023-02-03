@@ -12,6 +12,7 @@ enum custom_keycodes {
 
 enum layer_number {
   _ROLLLA = 0,
+  _SEHT,
   _QWERTY,
   _GAME,
   _GAMEFN,
@@ -51,6 +52,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_Y,       KC_O,       KC_U,       KC_B,       KC_DOT,                                 KC_X,       KC_K,           KC_C,   KC_L,   KC_V,       KC_SCLN,
   MO(_EXTEND),    KC_I,       KC_A,       KC_E,       KC_N,       KC_COMM,                                KC_M,       KC_H,           KC_S,   KC_R,   KC_T,       KC_MINS,
   KC_LCTL,  OSL(_SYMBOLS),      KC_QUOT,    KC_SLSH,    KC_P,       KC_W,           KC_Z,   SGUI(KC_S),     KC_F,       KC_D,           KC_G,   KC_J,   KC_Q,       KC_ENT,
+                                KC_RCTL,    REP,    OSM(MOD_LSFT),  KC_BSPC,            MO(_EXTEND),      KC_SPC,     OSL(_SYMBOLS),      KC_RGUI
+),
+
+/* SEHT
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * | ESC  | mute | vol- | vol+ | play |CSspc |                    | win. | CTab | ATabM| ATabS| winV |  `   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * | Tab  |   F  |   U  |   L  |   V  |   B  |                    |   -  |   G  |   N  |   O  |   J  |  ;   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |Extend|   S  |   E  |   H  |   T  |   K  |-------.    ,-------|   Q  |   D  |   R  |   A  |   I  |  .   |
+ * |------+------+------+------+------+------|   Z   |    |WinSftS|------+------+------+------+------+------|
+ * |LCtrl |OSLSym|   /  |   M  |   P  |   W  |-------|    |-------|   Y  |   C  |   X  |   '  |   ,  | Enter|
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *                   | LAlt | REP  |LShift| /BackSP /       \Extend\  |Space | Sym  | Win  |
+ *                   |(RCtrl)      |(OSM) |/       /         \      \ |      |(OSL) |      |
+ *                   `----------------------------'           '------''--------------------'
+ */
+
+ [_SEHT] = LAYOUT(
+  KC_ESC,   KC_MUTE,    KC_VOLD,    KC_VOLU,    KC_MPLY,    C(S(KC_SPC)),                           LGUI(KC_DOT),      CTRL_TAB_MASHABLE,   ALT_TAB_MASHABLE,  ALT_TAB_SELECTOR,  LGUI(KC_V), KC_GRV,
+  KC_TAB,   KC_F,       KC_U,       KC_L,       KC_V,       KC_B,                                 KC_MINS,       KC_G,           KC_N,   KC_O,   KC_J,       KC_SCLN,
+  MO(_EXTEND),    KC_S,       KC_E,       KC_H,       KC_T,       KC_K,                                KC_Q,       KC_D,           KC_R,   KC_A,   KC_I,       KC_DOT,
+  KC_LCTL,  OSL(_SYMBOLS),      KC_SLSH,    KC_M,    KC_P,       KC_W,           KC_Z,   SGUI(KC_S),     KC_Y,       KC_C,           KC_X,   KC_QUOT,   KC_COMM,       KC_ENT,
                                 KC_RCTL,    REP,    OSM(MOD_LSFT),  KC_BSPC,            MO(_EXTEND),      KC_SPC,     OSL(_SYMBOLS),      KC_RGUI
 ),
 
@@ -150,7 +174,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |QWERTY| GAME |ROLLLA|      |      |                    | PgUp | Home |  Up  | End  |  Del |  F12 |
+ * |      |QWERTY| GAME |ROLLLA| SEHT |      |                    | PgUp | Home |  Up  | End  |  Del |  F12 |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      | LAlt | LWin |LShift| LCtrl|      |-------.    ,-------|PgDown| Left | Down | Right| Enter|WinSfS|
  * |------+------+------+------+------+------| BOOT  |    | SLEEP |------+------+------+------+------+------|
@@ -163,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_EXTEND] = LAYOUT(
   KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11,
-  KC_TRNS, TO(_QWERTY), TO(_GAME), TO(_ROLLLA), KC_NO, KC_NO, KC_PGUP, KC_HOME, KC_UP, KC_END, KC_DEL, KC_F12,
+  KC_TRNS, TO(_QWERTY), TO(_GAME), TO(_ROLLLA), TO(_SEHT), KC_NO, KC_PGUP, KC_HOME, KC_UP, KC_END, KC_DEL, KC_F12,
   KC_TRNS, KC_RCTL, KC_LGUI, KC_LSFT, KC_LCTL, KC_NO, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_ENT, SGUI(KC_S),
   KC_TRNS, C(KC_Z), C(KC_X), C(KC_C), C(KC_V), KC_NO, QK_BOOT, KC_SLEP, C(KC_Z), C(KC_V), C(KC_C), C(KC_X), KC_TAB, KC_NO,
   KC_NO, KC_NO, KC_TAB, KC_BSPC, KC_NO, KC_TRNS, KC_NO, KC_NO
@@ -279,6 +303,18 @@ static void tanamr_logo(void){
 // #define L_SYM (1 << 4)
 // #define L_EXTEND (1 << 5)
 
+layer_state_t layer_state_set_user(layer_state_t state) {
+  switch (get_highest_layer(state)) {
+  case _ROLLLA:
+    combo_enable();
+    break;
+  default:
+    combo_disable();
+    break;
+  }
+  return state;
+}
+
 char layer_state_str[24];
 
 const char *read_layer_state(void) {
@@ -288,6 +324,9 @@ const char *read_layer_state(void) {
   case _ROLLLA:
     snprintf(layer_state_str, sizeof(layer_state_str), "rollla rollla rollla ");
     scrollla = true;
+    break;
+  case _SEHT:
+    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: seht-drai");
     break;
   case _GAME:
     snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Game");
