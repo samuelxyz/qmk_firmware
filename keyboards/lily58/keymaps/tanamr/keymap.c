@@ -59,11 +59,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * | ESC  | mute | vol- | vol+ | play |CSspc |                    | win. | CTab | ATabM| ATabS| winV |  `   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | Tab  |   F  |   U  |   L  |   V  |   B  |                    |   -  |   G  |   N  |   O  |   J  |  ;   |
+ * | Tab  |   F  |   U  |   L  |   V  |   B  |                    |   Q  |   G  |   N  |   O  |   J  |  ;   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |Extend|   S  |   E  |   H  |   T  |   K  |-------.    ,-------|   Q  |   D  |   R  |   A  |   I  |  .   |
+ * |Extend|   S  |   E  |   H  |   T  |   K  |-------.    ,-------|   '  |   D  |   R  |   A  |   I  |  .   |
  * |------+------+------+------+------+------|   Z   |    |WinSftS|------+------+------+------+------+------|
- * |LCtrl |OSLSym|   /  |   M  |   P  |   W  |-------|    |-------|   Y  |   C  |   X  |   '  |   ,  | Enter|
+ * |LCtrl |OSLSym|   -  |   M  |   P  |   W  |-------|    |-------|   Y  |   C  |   X  |   /  |   ,  | Enter|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   | LAlt | REP  |LShift| /BackSP /       \Extend\  |Space | Sym  | Win  |
  *                   |(RCtrl)      |(OSM) |/       /         \      \ |      |(OSL) |      |
@@ -72,9 +72,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  [_SEHT] = LAYOUT(
   KC_ESC,   KC_MUTE,    KC_VOLD,    KC_VOLU,    KC_MPLY,    C(S(KC_SPC)),                           LGUI(KC_DOT),      CTRL_TAB_MASHABLE,   ALT_TAB_MASHABLE,  ALT_TAB_SELECTOR,  LGUI(KC_V), KC_GRV,
-  KC_TAB,   KC_F,       KC_U,       KC_L,       KC_V,       KC_B,                                 KC_MINS,       KC_G,           KC_N,   KC_O,   KC_J,       KC_SCLN,
-  MO(_EXTEND),    KC_S,       KC_E,       KC_H,       KC_T,       KC_K,                                KC_Q,       KC_D,           KC_R,   KC_A,   KC_I,       KC_DOT,
-  KC_LCTL,  OSL(_SYMBOLS),      KC_SLSH,    KC_M,    KC_P,       KC_W,           KC_Z,   SGUI(KC_S),     KC_Y,       KC_C,           KC_X,   KC_QUOT,   KC_COMM,       KC_ENT,
+  KC_TAB,   KC_F,       KC_U,       KC_L,       KC_V,       KC_B,                                 KC_Q,       KC_G,           KC_N,   KC_O,   KC_J,       KC_SCLN,
+  MO(_EXTEND),    KC_S,       KC_E,       KC_H,       KC_T,       KC_K,                                KC_QUOT,       KC_D,           KC_R,   KC_A,   KC_I,       KC_DOT,
+  KC_LCTL,  OSL(_SYMBOLS),      KC_MINS,    KC_M,    KC_P,       KC_W,           KC_Z,   SGUI(KC_S),     KC_Y,       KC_C,           KC_X,   KC_SLSH,   KC_COMM,       KC_ENT,
                                 KC_RCTL,    REP,    OSM(MOD_LSFT),  KC_BSPC,            MO(_EXTEND),      KC_SPC,     OSL(_SYMBOLS),      KC_RGUI
 ),
 
