@@ -18,6 +18,7 @@ enum layer_number {
   _GAMEFN,
   _SYMBOLS,
   _EXTEND,
+  _RGB,
 };
 
 enum combos {
@@ -40,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |Extend|   I  |   A  |   E  |   N  |   ,  |-------.    ,-------|   M  |   H  |   S  |   R  |   T  |  -   |
  * |------+------+------+------+------+------|   Z   |    |WinSftS|------+------+------+------+------+------|
- * |LCtrl |OSLSym|   '  |   /  |   P  |   W  |-------|    |-------|   F  |   D  |   G  |   J  |   Q  | Enter|
+ * |LCtrl |OSLSym|   '  |   /  |   P  |   W  |-------|    |-------|   F  |   D  |   G  |   J  |   Q  |  RGB |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   | LAlt | REP  |LShift| /BackSP /       \Extend\  |Space | Sym  | Win  |
  *                   |(RCtrl)      |(OSM) |/       /         \      \ |      |(OSL) |      |
@@ -51,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,   KC_MUTE,    KC_VOLD,    KC_VOLU,    KC_MPLY,    C(S(KC_SPC)),                           LGUI(KC_DOT),      CTRL_TAB_MASHABLE,   ALT_TAB_MASHABLE,  ALT_TAB_SELECTOR,  LGUI(KC_V), KC_GRV,
   KC_TAB,   KC_Y,       KC_O,       KC_U,       KC_B,       KC_DOT,                                 KC_X,       KC_K,           KC_C,   KC_L,   KC_V,       KC_SCLN,
   MO(_EXTEND),    KC_I,       KC_A,       KC_E,       KC_N,       KC_COMM,                                KC_M,       KC_H,           KC_S,   KC_R,   KC_T,       KC_MINS,
-  KC_LCTL,  OSL(_SYMBOLS),      KC_QUOT,    KC_SLSH,    KC_P,       KC_W,           KC_Z,   SGUI(KC_S),     KC_F,       KC_D,           KC_G,   KC_J,   KC_Q,       KC_ENT,
+  KC_LCTL,  OSL(_SYMBOLS),      KC_QUOT,    KC_SLSH,    KC_P,       KC_W,           KC_Z,   SGUI(KC_S),     KC_F,       KC_D,           KC_G,   KC_J,   KC_Q,       MO(_RGB),
                                 KC_RCTL,    REP,    OSM(MOD_LSFT),  KC_BSPC,            MO(_EXTEND),      KC_SPC,     OSL(_SYMBOLS),      KC_RGUI
 ),
 
@@ -61,9 +62,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Tab  |   F  |   U  |   L  |   V  |   B  |                    |   Q  |   G  |   N  |   O  |   J  |  ;   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |Extend|   S  |   E  |   H  |   T  |   K  |-------.    ,-------|   '  |   D  |   R  |   A  |   I  |  .   |
+ * |Extend|   S  |   E  |   H  |   T  |   K  |-------.    ,-------|   Y  |   D  |   R  |   A  |   I  |  .   |
  * |------+------+------+------+------+------|   Z   |    |WinSftS|------+------+------+------+------+------|
- * |LCtrl |OSLSym|   -  |   M  |   P  |   W  |-------|    |-------|   Y  |   C  |   X  |   /  |   ,  | Enter|
+ * |LCtrl |OSLSym|   -  |   M  |   P  |   W  |-------|    |-------|   '  |   C  |   X  |   /  |   ,  | Enter|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   | LAlt | REP  |LShift| /BackSP /       \Extend\  |Space | Sym  | Win  |
  *                   |(RCtrl)      |(OSM) |/       /         \      \ |      |(OSL) |      |
@@ -73,8 +74,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [_SEHT] = LAYOUT(
   KC_ESC,   KC_MUTE,    KC_VOLD,    KC_VOLU,    KC_MPLY,    C(S(KC_SPC)),                           LGUI(KC_DOT),      CTRL_TAB_MASHABLE,   ALT_TAB_MASHABLE,  ALT_TAB_SELECTOR,  LGUI(KC_V), KC_GRV,
   KC_TAB,   KC_F,       KC_U,       KC_L,       KC_V,       KC_B,                                 KC_Q,       KC_G,           KC_N,   KC_O,   KC_J,       KC_SCLN,
-  MO(_EXTEND),    KC_S,       KC_E,       KC_H,       KC_T,       KC_K,                                KC_QUOT,       KC_D,           KC_R,   KC_A,   KC_I,       KC_DOT,
-  KC_LCTL,  OSL(_SYMBOLS),      KC_MINS,    KC_M,    KC_P,       KC_W,           KC_Z,   SGUI(KC_S),     KC_Y,       KC_C,           KC_X,   KC_SLSH,   KC_COMM,       KC_ENT,
+  MO(_EXTEND),    KC_S,       KC_E,       KC_H,       KC_T,       KC_K,                                KC_Y,       KC_D,           KC_R,   KC_A,   KC_I,       KC_DOT,
+  KC_LCTL,  OSL(_SYMBOLS),      KC_MINS,    KC_M,    KC_P,       KC_W,           KC_Z,   SGUI(KC_S),     KC_QUOT,       KC_C,           KC_X,   KC_SLSH,   KC_COMM,       KC_ENT,
                                 KC_RCTL,    REP,    OSM(MOD_LSFT),  KC_BSPC,            MO(_EXTEND),      KC_SPC,     OSL(_SYMBOLS),      KC_RGUI
 ),
 
@@ -193,6 +194,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO, KC_NO, KC_TAB, KC_BSPC, KC_NO, KC_TRNS, KC_NO, KC_NO
 ),
 
+/* RGB
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |      |      |      |      |      |      |                    |      |HueUp |SatUp |ValUp |ModeUp|      |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |      |      |      |      |      |      |-------.    ,-------|      |HueDn |SatDn |ValDn |ModeDn|      |
+ * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
+ * |      |      |      |      |      |      |-------|    |-------|      |      |      |      |      |[RGB] |
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *                   |      |      | LSFT | /       /       \      \  | RGB  |      |      |
+ *                   |      |      |      |/       /         \      \ |On/Off|      |      |
+ *                   `----------------------------'           '------''--------------------'
+ */
+
+[_RGB] = LAYOUT(
+  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, RGB_HUI, RGB_SAI, RGB_VAI, RGB_MODE_FORWARD, KC_NO,
+  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, RGB_HUD, RGB_SAD, RGB_VAD, RGB_MODE_REVERSE, KC_NO,
+  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS,
+  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, RGB_TOG, KC_NO, KC_NO
+),
+
 /* Blank
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
@@ -207,6 +231,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
+
+// [_BLANK] = LAYOUT(
+//   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+//   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+//   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+//   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+//   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
+// ),
 
 };
 
@@ -342,6 +374,9 @@ const char *read_layer_state(void) {
     break;
   case _EXTEND:
     snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Extend");
+    break;
+  case _RGB:
+    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: RGB Adjust");
     break;
   default:
     snprintf(layer_state_str, sizeof(layer_state_str), "Layer: %u", layer_state);
