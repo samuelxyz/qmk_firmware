@@ -242,8 +242,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-const rgblight_segment_t PROGMEM rgb_layer_white[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 14, HSV_WHITE}
+const rgblight_segment_t PROGMEM rgb_layer_extend[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 2, HSV_WHITE},
+    {7, 2, HSV_WHITE}
 );
 const rgblight_segment_t PROGMEM rgb_layer_shift[] = RGBLIGHT_LAYER_SEGMENTS(
     {5, 2, HSV_WHITE}
@@ -257,16 +258,17 @@ const rgblight_segment_t PROGMEM rgb_layer_blue[] = RGBLIGHT_LAYER_SEGMENTS(
 const rgblight_segment_t PROGMEM rgb_layer_purple[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 14, HSV_PURPLE}
 );
-const rgblight_segment_t PROGMEM rgb_layer_red[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 14, HSV_RED}
+const rgblight_segment_t PROGMEM rgb_layer_sym[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 2, HSV_RED},
+    {9, 2, HSV_RED}
 );
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     rgb_layer_green,
     rgb_layer_blue,
     rgb_layer_purple,
-    rgb_layer_red,
+    rgb_layer_sym,
     rgb_layer_shift,
-    rgb_layer_white
+    rgb_layer_extend
 );
 void keyboard_post_init_user(void) {
     // Enable the LED layers
