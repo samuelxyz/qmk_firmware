@@ -40,6 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 #define RGBLIGHT_EFFECT_KNIGHT
 #define RGBLIGHT_EFFECT_TWINKLE
+#define RGBLIGHT_SLEEP
 #define RGBLED_NUM 14
 #define RGBLED_SPLIT { 7, 7 }
 #define RGBLIGHT_LED_MAP { 6, 5, 4, 3, 2, 1, 0, 7, 8, 9, 10, 11, 12, 13}
@@ -48,6 +49,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
 
+#define RGBLIGHT_LAYERS
+//#define RGBLIGHT_LAYER_BLINK
+#define RGBLIGHT_LAYERS_RETAIN_VAL
+#define SPLIT_LAYER_STATE_ENABLE
+
 #define OLED_TIMEOUT 10000
 #define OLED_FADE_OUT
 // #define OLED_FADE_OUT_INTERVAL 3
@@ -55,13 +61,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_BRIGHTNESS 200
 #define OLED_UPDATE_INTERVAL 5
 
-// Underglow
-/*
-#undef RGBLED_NUM
-#define RGBLED_NUM 14    // Number of LEDs
-#define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_SLEEP
-*/
-
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
+#define NO_MUSIC_MODE
+#define LAYER_STATE_8BIT
