@@ -242,6 +242,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+const rgblight_segment_t PROGMEM rgb_layer_white[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 14, HSV_WHITE}
+);
+const rgblight_segment_t PROGMEM rgb_layer_shift[] = RGBLIGHT_LAYER_SEGMENTS(
+    {5, 2, HSV_WHITE}
+);
+const rgblight_segment_t PROGMEM rgb_layer_green[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 14, HSV_GREEN}
+);
+const rgblight_segment_t PROGMEM rgb_layer_blue[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 14, HSV_BLUE}
+);
+const rgblight_segment_t PROGMEM rgb_layer_purple[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 14, HSV_PURPLE}
+);
+const rgblight_segment_t PROGMEM rgb_layer_red[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 14, HSV_RED}
+);
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    rgb_layer_green,
+    rgb_layer_blue,
+    rgb_layer_purple,
+    rgb_layer_red,
+    rgb_layer_shift,
+    rgb_layer_white
+);
+void keyboard_post_init_user(void) {
+    // Enable the LED layers
+    rgblight_layers = my_rgb_layers;
+}
+
 //SSD1306 OLED update loop, make sure to enable OLED_ENABLE=yes in rules.mk
 // #ifdef OLED_ENABLE
 
@@ -344,7 +375,18 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     combo_disable();
     break;
   }
+
+  rgblight_set_layer_state(0, layer_state_cmp(state, _GAME) || layer_state_cmp(state, _GAMEFN));
+  rgblight_set_layer_state(1, layer_state_cmp(state, _SEHT));
+  rgblight_set_layer_state(2, layer_state_cmp(state, _QWERTY));
+  rgblight_set_layer_state(3, layer_state_cmp(state, _SYMBOLS));
+  rgblight_set_layer_state(5, layer_state_cmp(state, _EXTEND));
+
   return state;
+}
+
+void oneshot_mods_changed_user(uint8_t mods) {
+  rgblight_set_layer_state(4, (mods & MOD_MASK_SHIFT));
 }
 
 char layer_state_str[24];

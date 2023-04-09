@@ -14,6 +14,7 @@ SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 OLED_ENABLE = yes     # OLED display
 COMBO_ENABLE = yes
 LTO_ENABLE = yes
+AVR_USE_MINIMAL_PRINTF = yes
 
 # If you want to change the display of OLED, you need to change here
 #SRC += #./lib/rgb_state_reader.c \
