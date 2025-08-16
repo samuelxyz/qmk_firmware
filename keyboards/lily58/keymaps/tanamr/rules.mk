@@ -13,7 +13,8 @@ RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 OLED_ENABLE = yes     # OLED display
 COMBO_ENABLE = yes
-LTO_ENABLE = yes
+LTO_ENABLE = no # With LTO enable, the right board rgb gets frozen, see upstream issue #24725. but disabling it does add like 3500 bytes to firmware size
+# so now i have a grand total of 146 bytes free
 AVR_USE_MINIMAL_PRINTF = yes
 REPEAT_KEY_ENABLE = yes
 
