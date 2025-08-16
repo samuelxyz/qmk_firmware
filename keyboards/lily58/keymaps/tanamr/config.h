@@ -41,12 +41,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_KNIGHT
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_SLEEP
-#define RGBLED_NUM 14
+#undef RGBLIGHT_LED_COUNT
+#define RGBLIGHT_LED_COUNT 14
+#undef RGBLED_SPLIT
 #define RGBLED_SPLIT { 7, 7 }
 #define RGBLIGHT_LED_MAP { 6, 5, 4, 3, 2, 1, 0, 7, 8, 9, 10, 11, 12, 13}
 #define RGBLIGHT_LIMIT_VAL 255
+#undef RGBLIGHT_HUE_STEP
 #define RGBLIGHT_HUE_STEP 10
+#undef RGBLIGHT_SAT_STEP
 #define RGBLIGHT_SAT_STEP 17
+#undef RGBLIGHT_VAL_STEP
 #define RGBLIGHT_VAL_STEP 17
 
 #define RGBLIGHT_LAYERS
