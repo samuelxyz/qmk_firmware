@@ -152,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |  &   |  /   |  *   |  -   |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |  |   |  !   |  {   |  }   |  $   |                    |  *   |  7   |  8   |  9   |  +   |      |
+ * |      |  |   |  !   |  {   |  }   |  $   |                    |  *   |  7   |  8   |  9   |  +   |  :   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Space|  \   |  @   |  (   |  )   |  <   |-------.    ,-------|  >   |  4   |  5   |  6   |  =   |  _   |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
@@ -165,7 +165,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_SYMBOLS] = LAYOUT(
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_AMPR, KC_PSLS, KC_PAST, KC_PMNS, KC_TRNS,
-  KC_TRNS, KC_PIPE, KC_EXLM, KC_LCBR, KC_RCBR, KC_DLR, KC_ASTR, KC_7, KC_8, KC_9, KC_PLUS, KC_TRNS,
+  KC_TRNS, KC_PIPE, KC_EXLM, KC_LCBR, KC_RCBR, KC_DLR, KC_ASTR, KC_7, KC_8, KC_9, KC_PLUS, S(KC_SCLN),
   KC_SPC, KC_BSLS, KC_AT, KC_LPRN, KC_RPRN, KC_LT, KC_GT, KC_4, KC_5, KC_6, KC_EQL, KC_UNDS,
   KC_TRNS, KC_TRNS, KC_HASH, KC_LBRC, KC_RBRC, KC_PERC, KC_TRNS, KC_TRNS, KC_UNDS, KC_1, KC_2, KC_3, KC_CIRC, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_SPC, KC_TRNS, KC_0, KC_TRNS, KC_PDOT
