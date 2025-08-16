@@ -15,6 +15,7 @@ OLED_ENABLE = yes     # OLED display
 COMBO_ENABLE = yes
 LTO_ENABLE = yes
 AVR_USE_MINIMAL_PRINTF = yes
+REPEAT_KEY_ENABLE = yes
 
 # If you want to change the display of OLED, you need to change here
 #SRC += #./lib/rgb_state_reader.c \

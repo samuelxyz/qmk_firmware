@@ -4,8 +4,7 @@
 // #include "host.h"
 
 enum custom_keycodes {
-    REP = SAFE_RANGE,
-    CTRL_TAB_MASHABLE,
+    CTRL_TAB_MASHABLE = SAFE_RANGE,
     ALT_TAB_MASHABLE,
     ALT_TAB_SELECTOR
 };
@@ -43,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|   Z   |    |WinSftS|------+------+------+------+------+------|
  * |LCtrl |OSLSym|   '  |   /  |   P  |   W  |-------|    |-------|   F  |   D  |   G  |   J  |   Q  |  RGB |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LAlt | REP  |LShift| /BackSP /       \Extend\  |Space | Sym  | Win  |
+ *                   | LAlt |Repeat|LShift| /BackSP /       \Extend\  |Space | Sym  | Win  |
  *                   |(RCtrl)      |(OSM) |/       /         \      \ |      |(OSL) |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -53,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_Y,       KC_O,       KC_U,       KC_B,       KC_DOT,                                 KC_X,       KC_K,           KC_C,   KC_L,   KC_V,       KC_SCLN,
   MO(_EXTEND),    KC_I,       KC_A,       KC_E,       KC_N,       KC_COMM,                                KC_M,       KC_H,           KC_S,   KC_R,   KC_T,       KC_MINS,
   KC_LCTL,  OSL(_SYMBOLS),      KC_QUOT,    KC_SLSH,    KC_P,       KC_W,           KC_Z,   SGUI(KC_S),     KC_F,       KC_D,           KC_G,   KC_J,   KC_Q,       MO(_RGB),
-                                KC_RCTL,    REP,    OSM(MOD_LSFT),  KC_BSPC,            MO(_EXTEND),      KC_SPC,     OSL(_SYMBOLS),      KC_RGUI
+                                KC_RCTL,    QK_REP,    OSM(MOD_LSFT),  KC_BSPC,            MO(_EXTEND),      KC_SPC,     OSL(_SYMBOLS),      KC_RGUI
 ),
 
 /* SEHT
@@ -66,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|   Z   |    |WinSftS|------+------+------+------+------+------|
  * |LCtrl |OSLSym|   -  |   M  |   P  |   W  |-------|    |-------|   '  |   C  |   X  |   /  |   ,  | Enter|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LAlt | REP  |LShift| /BackSP /       \Extend\  |Space | Sym  | Win  |
+ *                   | LAlt |Repeat|LShift| /BackSP /       \Extend\  |Space | Sym  | Win  |
  *                   |(RCtrl)      |(OSM) |/       /         \      \ |      |(OSL) |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -76,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_F,       KC_U,       KC_L,       KC_V,       KC_B,                                 KC_Q,       KC_G,           KC_N,   KC_O,   KC_J,       KC_SCLN,
   MO(_EXTEND),    KC_S,       KC_E,       KC_H,       KC_T,       KC_K,                                KC_Y,       KC_D,           KC_R,   KC_A,   KC_I,       KC_DOT,
   KC_LCTL,  OSL(_SYMBOLS),      KC_MINS,    KC_M,    KC_P,       KC_W,           KC_Z,   SGUI(KC_S),     KC_QUOT,       KC_C,           KC_X,   KC_SLSH,   KC_COMM,       KC_ENT,
-                                KC_RCTL,    REP,    OSM(MOD_LSFT),  KC_BSPC,            MO(_EXTEND),      KC_SPC,     OSL(_SYMBOLS),      KC_RGUI
+                                KC_RCTL,    QK_REP,    OSM(MOD_LSFT),  KC_BSPC,            MO(_EXTEND),      KC_SPC,     OSL(_SYMBOLS),      KC_RGUI
 ),
 
 /* QWERTY
@@ -459,70 +458,12 @@ const char *read_mods_state(void)
     return mods_state_str;
 }
 
-
-// Used to extract the basic tapping keycode from a dual-role key.
-// Example: GET_TAP_KC(MT(MOD_RSFT, KC_E)) == KC_E
-#define GET_TAP_KC(dual_role_key) dual_role_key & 0xFF
-uint16_t last_keycode = KC_NO;
-uint8_t last_modifier = 0;
-uint16_t pressed_keycode = KC_NO;
-
-// Initialize variables holding the bitfield
-// representation of active modifiers.
-uint8_t mod_state;
-uint8_t oneshot_mod_state;
-
-void process_repeat_key(uint16_t keycode, const keyrecord_t *record) {
-  if (keycode != REP) {
-    // Early return when holding down a pure layer key
-    // to retain modifiers
-    switch (keycode) {
-      case QK_DEF_LAYER ... QK_DEF_LAYER_MAX:
-      case QK_MOMENTARY ... QK_MOMENTARY_MAX:
-      case QK_LAYER_MOD ... QK_LAYER_MOD_MAX:
-      case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
-      case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
-      case QK_TO ... QK_TO_MAX:
-      case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
-      case QK_MODS ... QK_MODS_MAX:
-      case KC_BSPC: // backspace shouldn't repeat lmao
-        return;
-    }
-    if (record->event.pressed) {
-      last_modifier = get_mods() | get_oneshot_mods();
-      switch (keycode) {
-        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
-        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-          last_keycode = GET_TAP_KC(keycode);
-          break;
-        default:
-          last_keycode = keycode;
-          break;
-        }
-    }
-  } else { // keycode == REPEAT
-    if (record->event.pressed) {
-      pressed_keycode = last_keycode;
-      register_mods(last_modifier);
-      register_code16(pressed_keycode);
-      unregister_mods(last_modifier);
-    } else {
-      unregister_code16(pressed_keycode);
-    }
-  }
-}
-
 bool alt_tab_mashing = false;
 uint32_t alt_tab_mash_timer = 0;
 bool ctrl_tab_mashing = false;
 uint32_t ctrl_tab_mash_timer = 0;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    process_repeat_key(keycode, record);
-    // It's important to update the mod variables *after* calling process_repeat_key, or else
-    // only a single modifier from the previous key is repeated (e.g. Ctrl+Shift+T then Repeat produces Shift+T)
-    mod_state = get_mods();
-    oneshot_mod_state = get_oneshot_mods();
 
     switch (keycode) {
       case ALT_TAB_MASHABLE:
