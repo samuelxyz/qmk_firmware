@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |LCtrl |OSLSym|   '  |   /  |   P  |   W  |-------|    |-------|   F  |   D  |   G  |   J  |   Q  |  RGB |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   | LAlt |Repeat|LShift| /BackSP /       \Extend\  |Space | Sym  | Win  |
- *                   |(RCtrl)      |(OSM) |/       /         \      \ |      |(OSL) |      |
+ *                   |             |(OSM) |/       /         \      \ |      |(OSL) |      |
  *                   `----------------------------'           '------''--------------------'
  */
 
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_Y,       KC_O,       KC_U,       KC_B,       KC_DOT,                                 KC_X,       KC_K,           KC_C,   KC_L,   KC_V,       KC_SCLN,
   MO(_EXTEND),    KC_I,       KC_A,       KC_E,       KC_N,       KC_COMM,                                KC_M,       KC_H,           KC_S,   KC_R,   KC_T,       KC_MINS,
   KC_LCTL,  OSL(_SYMBOLS),      KC_QUOT,    KC_SLSH,    KC_P,       KC_W,           KC_Z,   SGUI(KC_S),     KC_F,       KC_D,           KC_G,   KC_J,   KC_Q,       MO(_RGB),
-                                KC_RCTL,    QK_REP,    OSM(MOD_LSFT),  KC_BSPC,            MO(_EXTEND),      KC_SPC,     OSL(_SYMBOLS),      KC_RGUI
+                                KC_LALT,       QK_REP,    OSM(MOD_LSFT),  KC_BSPC,            MO(_EXTEND),      KC_SPC,     OSL(_SYMBOLS),      KC_RGUI
 ),
 
 /* SEHT
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |LCtrl |OSLSym|   -  |   M  |   P  |   W  |-------|    |-------|   '  |   C  |   X  |   /  |   ,  | Enter|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   | LAlt |Repeat|LShift| /BackSP /       \Extend\  |Space | Sym  | Win  |
- *                   |(RCtrl)      |(OSM) |/       /         \      \ |      |(OSL) |      |
+ *                   |             |(OSM) |/       /         \      \ |      |(OSL) |      |
  *                   `----------------------------'           '------''--------------------'
  */
 
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_F,       KC_U,       KC_L,       KC_V,       KC_B,                                 KC_Q,       KC_G,           KC_N,   KC_O,   KC_J,       KC_SCLN,
   MO(_EXTEND),    KC_S,       KC_E,       KC_H,       KC_T,       KC_K,                                KC_Y,       KC_D,           KC_R,   KC_A,   KC_I,       KC_DOT,
   KC_LCTL,  OSL(_SYMBOLS),      KC_MINS,    KC_M,    KC_P,       KC_W,           KC_Z,   SGUI(KC_S),     KC_QUOT,       KC_C,           KC_X,   KC_SLSH,   KC_COMM,       KC_ENT,
-                                KC_RCTL,    QK_REP,    OSM(MOD_LSFT),  KC_BSPC,            MO(_EXTEND),      KC_SPC,     OSL(_SYMBOLS),      KC_RGUI
+                                KC_LALT,       QK_REP,    OSM(MOD_LSFT),  KC_BSPC,            MO(_EXTEND),      KC_SPC,     OSL(_SYMBOLS),      KC_RGUI
 ),
 
 /* QWERTY
@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |  -   |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   | LAlt |LCtrl |Space | /BackSP /       \   I  \  |   J  |   K  |   L  |
- *                   |(RCtrl)      |      |/       /         \      \ |      |      |      |
+ *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
 
@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y,    KC_U,    KC_UP,    KC_O,    KC_P,    KC_QUOT,
   MO(_GAMEFN), KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_LEFT, KC_DOWN, KC_RGHT, KC_SCLN, KC_ENT,
   KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_H, KC_F2, KC_N, KC_M, KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
-  KC_RCTL, KC_LCTL, KC_SPC, KC_BSPC, KC_I, KC_J, KC_K, KC_L
+  KC_LALT, KC_LCTL, KC_SPC, KC_BSPC, KC_I, KC_J, KC_K, KC_L
 ),
 
 /* GameFn
@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |LCtrl |  F11 |  F12 |      |      | TRNS |-------|    |-------|      |      |      |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   | LAlt | Shift| Shift| /Rollla /       \      \  |      |      |      |
- *                   |(RCtrl)      |      |/       /         \      \ |      |      |      |
+ *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
 
@@ -144,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO, KC_F1, KC_NO, KC_F3, KC_F4, KC_F5, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
   KC_TRNS, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
   KC_LCTL, KC_F11, KC_F12, KC_NO, KC_NO, KC_TRNS, KC_TRNS, KC_NO, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-  KC_RCTL, KC_LSFT, KC_LSFT, TO(_ROLLLA), KC_NO, KC_NO, KC_NO, KC_NO
+  KC_LALT, KC_LSFT, KC_LSFT, TO(_ROLLLA), KC_NO, KC_NO, KC_NO, KC_NO
 ),
 
 /* Symbols/Numpad
@@ -188,7 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_EXTEND] = LAYOUT(
   KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11,
   KC_TRNS, TO(_QWERTY), TO(_GAME), TO(_ROLLLA), TO(_SEHT), KC_NO, KC_PGUP, KC_HOME, KC_UP, KC_END, KC_DEL, KC_F12,
-  KC_TRNS, KC_RCTL, KC_LGUI, KC_LSFT, KC_LCTL, KC_NO, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_ENT, SGUI(KC_S),
+  KC_TRNS, KC_LALT, KC_LGUI, KC_LSFT, KC_LCTL, KC_NO, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_ENT, SGUI(KC_S),
   KC_TRNS, C(KC_Z), C(KC_X), C(KC_C), C(KC_V), KC_NO, QK_BOOT, KC_SLEP, C(KC_Z), C(KC_V), C(KC_C), C(KC_X), KC_TAB, KC_NO,
   KC_NO, KC_NO, KC_TAB, KC_BSPC, KC_NO, KC_TRNS, KC_NO, KC_NO
 ),
@@ -449,7 +449,7 @@ const char *read_mods_state(void)
         mods & MOD_BIT(KC_LCTL) ? "C" : "",
         mods & MOD_MASK_SHIFT ? "S" : "",
         // mods & MOD_MASK_ALT ? "A" : "",
-        mods & (MOD_MASK_ALT | MOD_BIT(KC_RCTL)) ? "A" : "",
+        mods & (MOD_MASK_ALT) ? "A" : "",
         mods & MOD_MASK_GUI ? "G" : ""
     );
     if (mods) {
